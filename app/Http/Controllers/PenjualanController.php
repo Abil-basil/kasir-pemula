@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Penjualan;
 use Mpdf\Mpdf;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -20,6 +21,14 @@ class PenjualanController extends Controller
             'title' => 'detail penjualan - ' . $penjualan->TanggalPenjualan
         ];
         return view('detail-penjualan', $data);
+    }
+
+    public function pdf()
+    {
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml(view('download-pdf', ['title' => 'penjualan','data' => Penjualan::all()]));
+        $dompdf->render();
+        $dompdf->stream('penjualan.pdf'); //, array('Attachment' => false)
     }
 
     // public function view_pdf()

@@ -18,7 +18,11 @@
             <a href="pengguna" class="btn btn-warning">pengguna</a>
             <a href="pelanggan" class="btn btn-warning">pelanggan</a>
             <a href="produk" class="btn btn-warning">produk</a>
-            <a href="penjualan" class="btn btn-warning">penjualan</a>    
+            <a href="penjualan" class="btn btn-warning">penjualan</a>
+            <a href="#" class="btn btn-danger">Logout</a>
+            @if (request()->is('penjualan'))
+                <a href="download-pdf" class="btn btn-info">Download Pdf</a>
+            @endif
         @endif
 
         <div class="card mt-2">

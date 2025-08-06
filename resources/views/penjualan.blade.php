@@ -8,16 +8,18 @@
             <td>Total Harga</td>
             <td>Pengguna</td>
             <td>Pelanggan</td>
+            <td>Aksi</td>
         </tr>
         @forelse ($data as $isi)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>
-                    <a href="/penjualan/{{$isi->id}}">{{ $isi->TanggalPenjualan }}</a>
-                </td>
+                <td>{{ $isi->TanggalPenjualan }}</td>
                 <td>{{ $isi->TotalHarga }}</td>
                 <td>{{ $isi->Pengguna->Username }}</td>
                 <td>{{ $isi->Pelanggan->NamaPelanggan }}</td>
+                <td>
+                    <a href="/penjualan/{{$isi->id}}" class="btn btn-info">Detail</a>
+                </td>
             </tr>
         @empty
             <tr>

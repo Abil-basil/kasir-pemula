@@ -18,7 +18,7 @@
                 <td>{{ $isi->Pengguna->Username }}</td>
                 <td>{{ $isi->Pelanggan->NamaPelanggan }}</td>
                 <td>
-                    <a href="/penjualan/{{$isi->id}}" class="btn btn-info">Detail</a>
+                    <a href="/penjualan/{{$isi->id}}" class="btn btn-warning">Detail</a>
                 </td>
             </tr>
         @empty

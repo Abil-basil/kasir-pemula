@@ -21,4 +21,26 @@ class ProdukController extends Controller
 
         return view('/detail-penjualan', $data);
     }
+
+    public function create()
+    {
+        return view('create-produk', ['title' => 'Tambah Produk']);
+    }
+
+    public function store(Request $request) 
+    {
+        $request->validate([
+            'NamaProduk' => ['required'],
+            'Harga' => ['required'],
+            'Stok' => ['required'],
+        ]);
+
+        Produk::create([
+            'NamaProduk' => $request->NamaProduk,
+            'Harga' => $request->Harga,
+            'Stok' => $request->Stok
+        ]);
+
+        return redirect()->intended('produk')->with('success', 'Tambah Data Berhasil');
+    }
 }

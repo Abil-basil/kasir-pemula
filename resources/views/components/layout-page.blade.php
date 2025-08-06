@@ -27,7 +27,9 @@
 
         <div class="card mt-2">
             <div class="card-body">
-                <h4 class="mb-3">{{ $title }}</h4>
+                @if (!request()->is('tambah-**'))
+                    <h4 class="mb-3">{{ $title }}</h4>
+                @endif
                 {{ $slot }}
             </div>
         </div>

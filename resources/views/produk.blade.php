@@ -1,6 +1,14 @@
 <x-layout-page>
     <x-slot:title>{{ $title }}</x-slot:title>
 
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
+    @endif
+
+    <a href="tambah-produk" class="btn btn-warning mb-3">Tambah Produk</a>
     <table class="table table-stripped table-bordered">
         <tr class="fw-bold">
             <td>No</td>

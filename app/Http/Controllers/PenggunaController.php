@@ -14,7 +14,7 @@ class PenggunaController extends Controller
 
     public function create()
     {
-        return view('create-pengguna', ['title' => 'pengguna']);
+        return view('create-pengguna', ['title' => 'Tambah Pengguna']);
     }
 
     public function store(Request $request)
@@ -35,5 +35,29 @@ class PenggunaController extends Controller
         ]);
     
         return redirect()->intended('pengguna')->with('success', 'Tambah Pengguna Berhasil');
+    }
+
+    public function edit(Pengguna $pengguna)
+    {
+        return view('edit-pengguna', ['title' => 'Edit Pengguna', 'data' => $pengguna]);
+    }
+
+    public function update($id, Request $request)
+    {
+       $request->validate([
+            'username' => ['required'],
+            'password' => ['required', 'min:8'],
+            'email' => ['email', 'required'],
+            'peran' => ['required']
+        ]);
+
+        Pengguna::WHERE('id', $id)->UPDATE([
+            'Username' => $request->username,
+            'Password' => $request->password,
+            'Email' => $request->email,
+            'Peran' => $request->peran
+        ]);
+
+        return redirect()->intended('pengguna')->with('success', 'Edit Pengguna Berhasil');
     }
 }

@@ -8,7 +8,7 @@
         </div>
     @endif
 
-    <a href="tambah-pengguna" class="btn btn-warning mb-3">Tambah Pengguna</a>
+    <a href="/tambah-pengguna" class="btn btn-warning mb-3">Tambah Pengguna</a>
     <table class="table table-stripped table-bordered">
         <tr class="fw-bold">
             <td>No</td>
@@ -16,6 +16,7 @@
             <td>Password</td>
             <td>Email</td>
             <td>Peran</td>
+            <td>Aksi</td>
         </tr>
         @forelse ($data as $isi)
             <tr>
@@ -24,6 +25,10 @@
                 <td>**************</td>
                 <td>{{ $isi->Email }}</td>
                 <td>{{ $isi->Peran }}</td>
+                <td>
+                    <a href="/pengguna/{{ $isi->id }}/edit" class="btn btn-warning">Edit</a> 
+                    <a href="pengguna/{{ $isi->id }}/hapus" onclick="return confirm('yakin ingin menghapus')" class="btn btn-danger">Hapus</a>
+                </td>
             </tr>
         @empty
             <tr>

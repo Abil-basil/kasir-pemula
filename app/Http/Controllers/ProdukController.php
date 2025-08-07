@@ -43,4 +43,26 @@ class ProdukController extends Controller
 
         return redirect()->intended('produk')->with('success', 'Tambah Data Berhasil');
     }
+
+    public function edit(Produk $produk)
+    {
+        return view('edit-produk', ['title' => 'Edit Produk', 'data' => $produk]);
+    }
+
+    public function update($id, Request $request)
+    {
+        $request->validate([
+            'NamaProduk' => ['required'],
+            'Harga' => ['required'],
+            'Stok' => ['required']
+        ]);
+
+        Produk::WHERE('id', $id)->UPDATE([
+            'NamaProduk' => $request->NamaProduk,
+            'Harga' => $request->Harga,
+            'Stok' => $request->Stok
+        ]);
+
+        return redirect()->intended('produk')->with('success', 'Edit Produk Berhasil');
+    }
 }

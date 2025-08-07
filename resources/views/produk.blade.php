@@ -15,6 +15,7 @@
             <td>Nama Produk</td>
             <td>Harga</td>
             <td>Stok</td>
+            <td>Aksi</td>
         </tr>
         @forelse ($data as $isi)
             <tr>
@@ -22,6 +23,10 @@
                 <td>{{ $isi->NamaProduk }}</td>
                 <td>{{ $isi->Harga }}</td>
                 <td>{{ $isi->Stok }}</td>
+                <td>
+                    <a href="/produk/{{ $isi->id}}/edit" class="btn btn-warning">Edit</a>
+                    <a href="/produk/{{ $isi->id }}/hapus" onclick="return confirm('yakin ingin menghapus')" class="btn btn-danger">Hapus</a>
+                </td>
             </tr>
         @empty
             <tr>

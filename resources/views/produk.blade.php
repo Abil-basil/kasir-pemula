@@ -24,8 +24,14 @@
                 <td>{{ $isi->Harga }}</td>
                 <td>{{ $isi->Stok }}</td>
                 <td>
+                    <div class="d-flex gap-2">
                     <a href="/produk/{{ $isi->id}}/edit" class="btn btn-warning">Edit</a>
-                    <a href="/produk/{{ $isi->id }}/hapus" onclick="return confirm('yakin ingin menghapus')" class="btn btn-danger">Hapus</a>
+                        <form action="/produk/{{ $isi->id }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('yakin menghapus{{$isi->NamaProduk}}')">Hapus</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @empty

@@ -56,4 +56,16 @@ class PelangganController extends Controller
 
         return redirect()->intended('pelanggan')->with('success', 'Edit Pelanggan Berhasil');
     }
+    
+    public function delete(Pelanggan $pelanggan)
+    {
+        if ($pelanggan->penjualan()->count() > 0)
+        {
+           return redirect('pelanggan')->with('success', 'Pelanggan tidak bisa dihapus karena masih memiliki penjualan.');
+        }
+            
+        Pelanggan::WHERE('id', $pelanggan->id)->DELETE();
+            
+        return redirect()->intended('pelanggan')->with('success', 'Hapus Pelanggan Berhasil');
+    }
 }

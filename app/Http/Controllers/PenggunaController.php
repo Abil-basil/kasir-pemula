@@ -53,11 +53,25 @@ class PenggunaController extends Controller
 
         Pengguna::WHERE('id', $id)->UPDATE([
             'Username' => $request->username,
-            'Password' => $request->password,
+            'Password' => bcrypt($request->password),
             'Email' => $request->email,
             'Peran' => $request->peran
         ]);
 
         return redirect()->intended('pengguna')->with('success', 'Edit Pengguna Berhasil');
+    }
+
+    public function delete(Pengguna $pengguna)
+    {
+        // untuk mengecek apakah pengguna ini masih ada kaitannya dengan tabel penjualan
+        if ($pengguna->penjualan()->count() > 0) {
+            // jika true kirim success dengan pesan berikut
+            return redirect('/pengguna')->with('success', 'Pengguna tidak bisa dihapus karena masih memiliki penjualan.');
+        }
+
+        // jika tidak ada jalankan code di bawah
+        Pengguna::WHERE('id', $pengguna->id)->DELETE();
+
+        return redirect()->intended('pengguna')->with('success', 'Hapus Data Berhasil');
     }
 }

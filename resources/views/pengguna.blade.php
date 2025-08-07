@@ -26,8 +26,14 @@
                 <td>{{ $isi->Email }}</td>
                 <td>{{ $isi->Peran }}</td>
                 <td>
-                    <a href="/pengguna/{{ $isi->id }}/edit" class="btn btn-warning">Edit</a> 
-                    <a href="pengguna/{{ $isi->id }}/hapus" onclick="return confirm('yakin ingin menghapus')" class="btn btn-danger">Hapus</a>
+                    <div class="d-flex gap-2">
+                        <a href="/pengguna/{{ $isi->id }}/edit" class="btn btn-warning">Edit</a> 
+                        <form action="/pengguna/{{ $isi->id }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button onclick="return confirm('Apakah Yakin Ingin Menghapus {{$isi->Username}}')" type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @empty

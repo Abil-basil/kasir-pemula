@@ -65,4 +65,16 @@ class ProdukController extends Controller
 
         return redirect()->intended('produk')->with('success', 'Edit Produk Berhasil');
     }
+
+    public function delete(Produk $produk)
+    {
+        if ( $produk->DetailPenjualan()->count() > 0 )
+        {
+            return redirect('produk')->with('success', 'Produk tidak bisa dihapus karena masih memiliki penjualan.');
+        }
+
+        Produk::WHERE('id', $produk->id)->DELETE();
+
+        return redirect()->intended('produk')->with('success', 'Hapus produk '. $produk->NamaProduk .' Berhasil');
+    }
 }

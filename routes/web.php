@@ -25,6 +25,8 @@ Route::post('/pengguna', [PenggunaController::class, 'store']);
 // update
 Route::get('/pengguna/{pengguna}/edit', [PenggunaController::class, 'edit']);
 Route::put('/pengguna/{id}', [PenggunaController::class, 'update']);
+// delete
+Route::delete('/pengguna/{pengguna}', [PenggunaController::class, 'delete']);
 
 
 // pelanggan
@@ -35,6 +37,9 @@ Route::post('/pelanggan', [PelangganController::class, 'store']);
 // update
 Route::get('/pelanggan/{pelanggan}/edit', [PelangganController::class, 'edit']);
 Route::put('/pelanggan/{id}', [PelangganController::class, 'update']);
+// delete
+Route::delete('pelanggan/{pelanggan}', [PelangganController::class, 'delete']); 
+
 
 
 // produk
@@ -46,6 +51,8 @@ Route::post('/produk', [ProdukController::class, 'store']);
 // update
 Route::get('/produk/{produk}/edit', [ProdukController::class, 'edit']);
 Route::put('/produk/{id}', [ProdukController::class, 'update']);
+// delete
+Route::delete('/produk/{produk}', [ProdukController::class, 'delete']);
 
 
 Route::get('/penjualan', [PenjualanController::class, 'index']);

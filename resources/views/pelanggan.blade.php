@@ -24,8 +24,14 @@
                 <td>{{ $isi->Alamat }}</td>
                 <td>{{ $isi->NoTelp }}</td>
                 <td>
-                    <a href="/pelanggan/{{ $isi->id }}/edit" class="btn btn-warning">Edit</a>
-                    <a href="/pelanggan/{{ $isi->id }}/hapus" onclick="return confirm('yakin ingin menghapus')" class="btn btn-danger">Hapus</a>
+                    <div class="d-flex gap-2">
+                        <a href="/pelanggan/{{ $isi->id }}/edit" class="btn btn-warning">Edit</a>
+                        <form action="/pelanggan/{{ $isi->id }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" onclick="return confirm('yakin ingin menghapus {{$isi->NamaPelanggan}}')" class="btn btn-danger">Hapus</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @empty

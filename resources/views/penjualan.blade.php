@@ -18,7 +18,15 @@
                 <td>{{ $isi->Pengguna->Username }}</td>
                 <td>{{ $isi->Pelanggan->NamaPelanggan }}</td>
                 <td>
-                    <a href="/penjualan/{{$isi->id}}" class="btn btn-warning">Detail</a>
+                    <div class="d-flex gap-2">
+                    <a href="/penjualan/{{$isi->id}}" class="btn btn-info">Detail</a>
+                    <a href="/penjualan/{{ $isi->id }}/edit" class="btn btn-warning">Edit</a>
+                        <form action="/penjualan/{{ $isi->id }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('yakin ingin menghapus')">Hapus</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         @empty

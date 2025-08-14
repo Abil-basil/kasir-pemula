@@ -2,7 +2,10 @@
     <x-slot:title>{{ $title }}</x-slot:title>
 
     @if (session()->has('notif'))
-        <div class="text-form text-danger">{{ session('notif') }}</div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('notif') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
     @endif
 
     <a href="/tambah-penjualan" class="btn btn-warning mb-3">Tambah Penjualan</a>

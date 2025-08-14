@@ -14,7 +14,7 @@ class PenjualanController extends Controller
 {
     public function index()
     {
-        return view('penjualan', ['title' => 'penjualan', 'data' => Penjualan::all()]);
+        return view('penjualan', ['title' => 'penjualan', 'data' => Penjualan::latest()->get()]);
     }
 
     public function show(Penjualan $penjualan)
@@ -52,7 +52,7 @@ class PenjualanController extends Controller
             'pelanggan' => ['required'],
             'produk' => ['required'],
             'jumlah' => ['required'],
-            'satuan' => ['required']
+            // 'satuan' => ['required']
         ]);
         // dd($request->satuan);
 
@@ -64,9 +64,11 @@ class PenjualanController extends Controller
         //     return back()->with('notif', 'stok tidak mencukupi');
         // }
 
+        $produk = Produk::WHERE('id', $request->produk)->first();
+
         $penjualan = Penjualan::create([
             'TanggalPenjualan' => now(),
-            'TotalHarga' => $request->jumlah * $request->satuan,
+            'TotalHarga' => $request->jumlah * $produk->Harga,
             'PenggunaID' => $request->pengguna,
             'PelangganID' => $request->pelanggan,
         ]);
@@ -76,7 +78,7 @@ class PenjualanController extends Controller
             'PenjualanID' => $penjualan->id,
             'ProdukID' => $request->produk,
             'JumlahProduk' => $request->jumlah,
-            'Subtotal' => $request->satuan
+            'Subtotal' => $produk->Harga * $request->jumlah
         ]);
 
         return redirect('penjualan')->with('notif', 'tambah penjualan berhasil');

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('detail_penjualans', function (Blueprint $table) {
             $table->id();
+            // $table->foreignId('PenjualanID')->references('id')->on('penjualans')->onDelete('set null');
             $table->foreignId('PenjualanID')->constrained(
                 table: 'penjualans',
                 indexName:'detail_penjualan_penjualan_id'

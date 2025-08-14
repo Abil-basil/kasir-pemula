@@ -56,8 +56,15 @@ Route::delete('/produk/{produk}', [ProdukController::class, 'delete']);
 
 
 Route::get('/penjualan', [PenjualanController::class, 'index']);
+// detail
 Route::get('/penjualan/{penjualan}', [PenjualanController::class, 'show']);
+// download pdf
 Route::get('/download-pdf', [PenjualanController::class, 'pdf']);
+// create
+Route::get('/tambah-penjualan', [PenjualanController::class, 'create']);
+Route::post('/penjualan', [PenjualanController::class, 'store']);
+// delete
+Route::delete('/penjualan/{penjualan}', [PenjualanController::class, 'delete']);
 
 // untuk detail penjualan disatukan di controller penjualan
 // Route::get('detail-penjualan', [DetailPenjualanController::class, 'index']);

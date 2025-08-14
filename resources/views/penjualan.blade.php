@@ -1,6 +1,11 @@
 <x-layout-page>
     <x-slot:title>{{ $title }}</x-slot:title>
 
+    @if (session()->has('notif'))
+        <div class="text-form text-danger">{{ session('notif') }}</div>
+    @endif
+
+    <a href="/tambah-penjualan" class="btn btn-warning mb-3">Tambah Penjualan</a>
     <table class="table table-stripped table-bordered">
         <tr class="fw-bold">
             <td>No</td>
@@ -20,7 +25,7 @@
                 <td>
                     <div class="d-flex gap-2">
                     <a href="/penjualan/{{$isi->id}}" class="btn btn-info">Detail</a>
-                    <a href="/penjualan/{{ $isi->id }}/edit" class="btn btn-warning">Edit</a>
+                    {{-- <a href="/penjualan/{{ $isi->id }}/edit" class="btn btn-warning">Edit</a> --}}
                         <form action="/penjualan/{{ $isi->id }}" method="POST">
                             @method('DELETE')
                             @csrf

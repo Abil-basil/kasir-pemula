@@ -2,9 +2,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penjualan;
+use App\Models\DetailPenjualan;
+use App\Models\Produk;
+use App\Models\Pelanggan;
 use Mpdf\Mpdf;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\Attributes\BackupGlobals;
 
 class PenjualanController extends Controller
 {
@@ -29,6 +33,61 @@ class PenjualanController extends Controller
         $dompdf->loadHtml(view('download-pdf', ['title' => 'penjualan','data' => Penjualan::all()]));
         $dompdf->render();
         $dompdf->stream('penjualan.pdf'); //, array('Attachment' => false)
+    }
+
+    public function create(){
+        $data = [
+            'title' => 'tambah penjualan',
+            'pelanggan' => Pelanggan::all(),
+            'produk' => Produk::all(),
+            'penjualan' => Penjualan::all()
+        ];
+
+        return view('create-penjualan', $data);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'pelanggan' => ['required'],
+            'produk' => ['required'],
+            'jumlah' => ['required'],
+            'satuan' => ['required']
+        ]);
+        // dd($request->satuan);
+
+        // cek stok (chatgpt)
+        // $produk = Produk::find($request->produk);
+        // dd($produk);
+
+        // if ($request->produk > $produk->Stok) {
+        //     return back()->with('notif', 'stok tidak mencukupi');
+        // }
+
+        $penjualan = Penjualan::create([
+            'TanggalPenjualan' => now(),
+            'TotalHarga' => $request->jumlah * $request->satuan,
+            'PenggunaID' => $request->pengguna,
+            'PelangganID' => $request->pelanggan,
+        ]);
+
+
+        DetailPenjualan::create([
+            'PenjualanID' => $penjualan->id,
+            'ProdukID' => $request->produk,
+            'JumlahProduk' => $request->jumlah,
+            'Subtotal' => $request->satuan
+        ]);
+
+        return redirect('penjualan')->with('notif', 'tambah penjualan berhasil');
+
+    }
+
+    public function delete(Penjualan $penjualan)
+    {
+        Penjualan::WHERE('id', $penjualan->id)->DELETE();
+
+        return redirect('penjualan')->with('success', 'Hapus Data Berhasil');
     }
 
     // public function view_pdf()
